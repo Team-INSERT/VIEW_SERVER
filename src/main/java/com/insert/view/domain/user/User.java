@@ -5,6 +5,9 @@ import com.insert.view.domain.user.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import leehj050211.bsmOauth.dto.resource.BsmStudent;
+import leehj050211.bsmOauth.dto.resource.BsmTeacher;
+import leehj050211.bsmOauth.dto.resource.BsmUserResource;
 import lombok.*;
 
 @Entity
@@ -46,4 +49,30 @@ public class User {
     @Min(1)
     @Max(16)
     private Short student_number;
+
+    public void setTeacherValue(BsmTeacher teacher) {
+        this.name = teacher.getName();
+        this.role = Role.TEACHER;
+    }
+
+    public void setStudentValue(BsmStudent student) {
+        this.name = student.getName();
+        this.role = Role.STUDENT;
+        this.enroll = student.getEnrolledAt().longValue();
+        this.grade = student.getGrade().shortValue();
+        this.class_number = student.getClassNo().shortValue();
+        this.student_number = student.getStudentNo().shortValue();
+    }
+
+    public void updateUserProfile(BsmUserResource resource) {
+        this.id = resource.getUserCode();
+        this.nickname = resource.getNickname();
+        this.email = resource.getEmail();
+        this.profile_image = resource.getProfileUrl();
+
+        switch (resource.getRole()) {
+            case STUDENT -> setStudentValue(resource.getStudent());
+            case TEACHER -> setTeacherValue(resource.getTeacher());
+        }
+    }
 }

@@ -20,6 +20,8 @@ public class RefreshToken {
     @Indexed
     private String refreshToken;
 
+    private String role;
+
     @TimeToLive
     private long ttl;
 
