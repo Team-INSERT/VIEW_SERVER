@@ -14,7 +14,7 @@ import com.insert.view.infra.jwt.properties.JwtConstants;
 import com.insert.view.infra.jwt.properties.JwtProperties;
 import com.insert.view.infra.jwt.util.JwtProvider;
 import com.insert.view.infra.jwt.util.JwtUtil;
-import com.insert.view.presentation.dto.UsingRefreshTokenReq;
+import com.insert.view.presentation.auth.dto.UsingRefreshTokenReq;
 import leehj050211.bsmOauth.BsmOauth;
 import leehj050211.bsmOauth.dto.resource.BsmUserResource;
 import leehj050211.bsmOauth.exception.BsmOAuthCodeNotFoundException;
