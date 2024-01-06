@@ -10,9 +10,11 @@ import com.insert.view.domain.user.repo.UserRepo;
 import com.insert.view.infra.error.exception.ErrorCode;
 import com.insert.view.infra.error.exception.ViewException;
 import com.insert.view.infra.jwt.TokenResponseDto;
+import com.insert.view.infra.jwt.properties.JwtConstants;
 import com.insert.view.infra.jwt.properties.JwtProperties;
 import com.insert.view.infra.jwt.util.JwtProvider;
 import com.insert.view.infra.jwt.util.JwtUtil;
+import com.insert.view.presentation.dto.UsingRefreshTokenReq;
 import leehj050211.bsmOauth.BsmOauth;
 import leehj050211.bsmOauth.dto.resource.BsmUserResource;
 import leehj050211.bsmOauth.exception.BsmOAuthCodeNotFoundException;
@@ -119,4 +121,11 @@ public class AuthImplement {
         refreshTokenRepo.findById(authId)
                 .ifPresent(refreshTokenRepo::delete);
     }
+
+    public String getUserAuthId(UsingRefreshTokenReq usingRefreshTokenReq) {
+        return jwtUtil.getJwtBody(
+                jwtUtil.replaceBearer(usingRefreshTokenReq.getRefreshToken())
+        ).get(JwtConstants.AUTH_ID.message).toString();
+    }
+
 }
